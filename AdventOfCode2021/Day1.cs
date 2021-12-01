@@ -13,18 +13,17 @@ namespace AdventOfCode2021
             {
                 n[i] = int.Parse(numbers[i]);
             }
-            
+
+            int increases = 0;
+
             for(int i = 0; i < n.Length - 1; ++i)
             {
-                for(int j = i + 1; j < n.Length; ++j)
-                {
-                    if (n[i] + n[j] == 2020)
-                    {
-                        Console.WriteLine(n[i] * n[j]);
-                        Console.Read();
-                    }
-                }
+                if (n[i] < n[i + 1])
+                    increases++;
             }
+            
+            Console.WriteLine(increases);
+            Console.Read();
         }
 
         public static void part2()
@@ -36,20 +35,16 @@ namespace AdventOfCode2021
                 n[i] = int.Parse(numbers[i]);
             }
 
-            for (int i = 0; i < n.Length - 2; ++i)
+            int increases = 0;
+
+            for (int i = 0; i < n.Length - 3; ++i)
             {
-                for (int j = i + 1; j < n.Length - 1; ++j)
-                {
-                    for (int k = j + 1; k < n.Length; ++k)
-                    {
-                        if (n[i] + n[j] + n[k] == 2020)
-                        {
-                            Console.WriteLine(n[i] * n[j] * n[k]);
-                            Console.Read();
-                        }
-                    }
-                }
+                if (n[i] < n[i + 3])
+                    increases++;
             }
+
+            Console.WriteLine(increases);
+            Console.Read();
         }
     }
 }
