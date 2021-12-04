@@ -63,38 +63,39 @@ namespace AdventOfCode2021
 
             Array.Sort(numbers);
 
-            int min = 0;
-            int max = numbers.Length;
+            int oxyMin = 0;
+            int oxyMax = numbers.Length;
+            int co2Min = 0;
+            int co2Max = numbers.Length;
 
-
-            for(int i = 0; i < n && (max - min) != 1; ++i)
+            for (int i = 0; i < n; ++i)
             {
                 int bit = 1 << (n - i - 1);
-                int bitSample = numbers[(max + min) / 2] & bit;
 
-                while ((numbers[min] & bit) != bitSample)
-                    min++;
+                if(oxyMax - oxyMin > 1)
+                {
+                    int bitSample = numbers[(oxyMax + oxyMin) / 2] & bit;
 
-                while ((numbers[max - 1] & bit) != bitSample)
-                    max--;
+                    while ((numbers[oxyMin] & bit) != bitSample)
+                        oxyMin++;
+
+                    while ((numbers[oxyMax - 1] & bit) != bitSample)
+                        oxyMax--;
+                }
+
+                if(co2Max - co2Min > 1)
+                {
+                    int bitSample = numbers[(co2Max + co2Min) / 2] & bit;
+
+                    while ((numbers[co2Min] & bit) == bitSample)
+                        co2Min++;
+
+                    while ((numbers[co2Max - 1] & bit) == bitSample)
+                        co2Max--;
+                }
             }
 
-            int min2 = 0;
-            int max2 = numbers.Length;
-
-            for (int i = 0; i < n && (max2 - min2) != 1; ++i)
-            {
-                int bit = 1 << (n - i - 1);
-                int bitSample = numbers[(max2 + min2) / 2] & bit;
-
-                while ((numbers[min2] & bit) == bitSample)
-                    min2++;
-
-                while ((numbers[max2 - 1] & bit) == bitSample)
-                    max2--;
-            }
-
-            Console.WriteLine(numbers[min] * numbers[min2]);
+            Console.WriteLine(numbers[oxyMin] * numbers[co2Min]);
             Console.Read();
         }
     }
