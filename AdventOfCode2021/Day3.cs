@@ -66,7 +66,6 @@ namespace AdventOfCode2021
             int min = 0;
             int max = numbers.Length;
 
-            int sum = 0;
 
             for(int i = 0; i < n && (max - min) != 1; ++i)
             {
@@ -77,19 +76,18 @@ namespace AdventOfCode2021
                 {
                     for(int j = min; j < max; ++j)
                     {
-                        if(numbers[j] >= sum + bit)
+                        if((numbers[j] & bit) > 0)
                         {
                             min = j;
                             break;
                         }
                     }
-                    sum += bit;
                 }
                 else
                 {
                     for (int j = max - 1; j > min; --j)
                     {
-                        if (numbers[j] >= sum + bit)
+                        if ((numbers[j] & bit) > 0)
                         {
                             max = j;
                         }
@@ -101,8 +99,6 @@ namespace AdventOfCode2021
             int min2 = 0;
             int max2 = numbers.Length;
 
-            int sum2 = 0;
-
             for (int i = 0; i < n && (max2 - min2) != 1; ++i)
             {
                 int bit = 1 << (n - i - 1);
@@ -112,7 +108,7 @@ namespace AdventOfCode2021
                 {
                     for (int j = max2 - 1; j > min2; --j)
                     {
-                        if (numbers[j] >= sum2 + bit)
+                        if ((numbers[j] & bit) > 0)
                         {
                             max2 = j;
                         }
@@ -123,13 +119,12 @@ namespace AdventOfCode2021
                 {
                     for (int j = min2; j < max2; ++j)
                     {
-                        if (numbers[j] >= sum2 + bit)
+                        if ((numbers[j] & bit) > 0)
                         {
                             min2 = j;
                             break;
                         }
                     }
-                    sum2 += bit;
                 }
             }
 
