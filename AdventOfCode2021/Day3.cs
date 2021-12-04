@@ -70,30 +70,13 @@ namespace AdventOfCode2021
             for(int i = 0; i < n && (max - min) != 1; ++i)
             {
                 int bit = 1 << (n - i - 1);
-                int sample = numbers[(max + min) / 2];
+                int bitSample = numbers[(max + min) / 2] & bit;
 
-                if((sample & bit) > 0)
-                {
-                    for(int j = min; j < max; ++j)
-                    {
-                        if((numbers[j] & bit) > 0)
-                        {
-                            min = j;
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    for (int j = max - 1; j > min; --j)
-                    {
-                        if ((numbers[j] & bit) > 0)
-                        {
-                            max = j;
-                        }
-                        else break;
-                    }
-                }
+                while ((numbers[min] & bit) != bitSample)
+                    min++;
+
+                while ((numbers[max - 1] & bit) != bitSample)
+                    max--;
             }
 
             int min2 = 0;
@@ -102,30 +85,13 @@ namespace AdventOfCode2021
             for (int i = 0; i < n && (max2 - min2) != 1; ++i)
             {
                 int bit = 1 << (n - i - 1);
-                int sample = numbers[(max2 + min2) / 2];
+                int bitSample = numbers[(max2 + min2) / 2] & bit;
 
-                if ((sample & bit) > 0)
-                {
-                    for (int j = max2 - 1; j > min2; --j)
-                    {
-                        if ((numbers[j] & bit) > 0)
-                        {
-                            max2 = j;
-                        }
-                        else break;
-                    }
-                }
-                else
-                {
-                    for (int j = min2; j < max2; ++j)
-                    {
-                        if ((numbers[j] & bit) > 0)
-                        {
-                            min2 = j;
-                            break;
-                        }
-                    }
-                }
+                while ((numbers[min2] & bit) == bitSample)
+                    min2++;
+
+                while ((numbers[max2 - 1] & bit) == bitSample)
+                    max2--;
             }
 
             Console.WriteLine(numbers[min] * numbers[min2]);
