@@ -12,7 +12,7 @@ namespace AdventOfCode2021
     {
         public static void part1()
         {
-            string[] lines = new StreamReader("day2.txt").ReadToEnd().Trim().Split('\n');
+            string[] lines = File.ReadAllLines("day2.txt");
 
             int depth = 0;
             int position = 0;
@@ -42,7 +42,7 @@ namespace AdventOfCode2021
 
         public static void part2()
         {
-            string[] lines = new StreamReader("day2.txt").ReadToEnd().Trim().Split('\n');
+            string[] lines = File.ReadAllLines("day2.txt");
 
             int depth = 0;
             int position = 0;

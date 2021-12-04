@@ -11,7 +11,7 @@ namespace AdventOfCode2021
     {
         public static void part1()
         {
-            string[] lines = new StreamReader("day3.txt").ReadToEnd().Trim().Split('\n');
+            string[] lines = File.ReadAllLines("day3.txt");
             int[] numbers = new int[lines.Length];
 
             int n = lines[0].Length;
@@ -48,7 +48,7 @@ namespace AdventOfCode2021
 
         public static void part2()
         {
-            string[] lines = new StreamReader("day3.txt").ReadToEnd().Trim().Split('\n');
+            string[] lines = File.ReadAllLines("day3.txt");
 
             int[] numbers = new int[lines.Length];
 
@@ -72,9 +72,8 @@ namespace AdventOfCode2021
             {
                 int bit = 1 << (n - i - 1);
                 int sample = numbers[(max + min) / 2];
-                int sampleBit = sample & bit;
 
-                if(sampleBit > 0)
+                if((sample & bit) > 0)
                 {
                     for(int j = min; j < max; ++j)
                     {
@@ -84,6 +83,7 @@ namespace AdventOfCode2021
                             break;
                         }
                     }
+                    sum += bit;
                 }
                 else
                 {
@@ -96,8 +96,6 @@ namespace AdventOfCode2021
                         else break;
                     }
                 }
-
-                sum += sampleBit;
             }
 
             int min2 = 0;
@@ -109,9 +107,8 @@ namespace AdventOfCode2021
             {
                 int bit = 1 << (n - i - 1);
                 int sample = numbers[(max2 + min2) / 2];
-                int sampleBit = sample & bit;
 
-                if (sampleBit > 0)
+                if ((sample & bit) > 0)
                 {
                     for (int j = max2 - 1; j > min2; --j)
                     {
@@ -121,7 +118,6 @@ namespace AdventOfCode2021
                         }
                         else break;
                     }
-
                 }
                 else
                 {

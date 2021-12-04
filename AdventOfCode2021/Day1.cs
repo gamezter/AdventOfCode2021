@@ -7,7 +7,7 @@ namespace AdventOfCode2021
     {
         public static void part1()
         {
-            string[] numbers = new StreamReader("day1.txt").ReadToEnd().Trim().Split();
+            string[] numbers = File.ReadAllLines("day1.txt");
             int[] n = new int[numbers.Length];
             for(int i = 0; i < n.Length; i++)
             {
@@ -28,7 +28,7 @@ namespace AdventOfCode2021
 
         public static void part2()
         {
-            string[] numbers = new StreamReader("day1.txt").ReadToEnd().Trim().Split();
+            string[] numbers = File.ReadAllLines("day1.txt");
             int[] n = new int[numbers.Length];
             for (int i = 0; i < n.Length; i++)
             {
