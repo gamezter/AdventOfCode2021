@@ -29,6 +29,13 @@ namespace AdventOfCode2021
                 boards.Add(board);
             }
 
+            int[] tests = new[]
+            {
+                0x000001F, 0x00003E0, 0x0007C00, 0x00F8000, 0x1F00000,
+                0x1084210, 0x0842108, 0x0421084, 0x0210842, 0x0108421,
+                //0x1041041, 0x0111110
+            };
+
             string[] randomNumbers = lines[0].Split(',');
 
             for(int i = 0; i < randomNumbers.Length; ++i)
@@ -43,12 +50,7 @@ namespace AdventOfCode2021
                         checks[j] |= 1 << (24 - index);
                 }
 
-                int[] tests = new[]
-                {
-                    0x000001F, 0x00003E0, 0x0007C00, 0x00F8000, 0x1F00000,
-                    0x1084210, 0x0842108, 0x0421084, 0x0210842, 0x0108421,
-                    //0x1041041, 0x0111110
-                };
+
 
                 for(int j = 0; j < checks.Length; ++j)
                 {
