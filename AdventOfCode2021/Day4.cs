@@ -18,7 +18,7 @@ namespace AdventOfCode2021
                 int[] board = new int[25];
                 for(int j = 0; j < 5; ++j)
                 {
-                    string[] numbers = lines[i + j + 1].Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+                    string[] numbers = lines[i + j + 1].Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     board[j * 5 + 0] = int.Parse(numbers[0]);
                     board[j * 5 + 1] = int.Parse(numbers[1]); 
                     board[j * 5 + 2] = int.Parse(numbers[2]); 
@@ -49,8 +49,6 @@ namespace AdventOfCode2021
                     if(index >= 0)
                         checks[j] |= 1 << (24 - index);
                 }
-
-
 
                 for(int j = 0; j < checks.Length; ++j)
                 {
@@ -135,7 +133,7 @@ namespace AdventOfCode2021
                         }
                     }
                 }
-nextBoard:      ; // putting a label on a noop
+nextBoard:      ;
             }
 
             boards.Sort((a, b) => a[26].CompareTo(b[26]));
