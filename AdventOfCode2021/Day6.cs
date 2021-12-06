@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode2021
 {
@@ -22,17 +18,16 @@ namespace AdventOfCode2021
 
             for(int i = 0; i < 80; ++i)
             {
-                int[] temp = new int[9];
-                temp[0] = lanternFish[1];
-                temp[1] = lanternFish[2];
-                temp[2] = lanternFish[3];
-                temp[3] = lanternFish[4];
-                temp[4] = lanternFish[5];
-                temp[5] = lanternFish[6];
-                temp[6] = lanternFish[7] + lanternFish[0];
-                temp[7] = lanternFish[8];
-                temp[8] = lanternFish[0];
-                lanternFish = temp;
+                int temp = lanternFish[1];
+                lanternFish[1] = lanternFish[2];
+                lanternFish[2] = lanternFish[3];
+                lanternFish[3] = lanternFish[4];
+                lanternFish[4] = lanternFish[5];
+                lanternFish[5] = lanternFish[6];
+                lanternFish[6] = lanternFish[7] + lanternFish[0];
+                lanternFish[7] = lanternFish[8];
+                lanternFish[8] = lanternFish[0];
+                lanternFish[0] = temp;
             }
 
             int sum = lanternFish[0] + lanternFish[1] + lanternFish[2] + lanternFish[3] + lanternFish[4] + lanternFish[5] + lanternFish[6] + lanternFish[7] + lanternFish[8];
@@ -54,17 +49,16 @@ namespace AdventOfCode2021
 
             for (int i = 0; i < 256; ++i)
             {
-                long[] temp = new long[9];
-                temp[0] = lanternFish[1];
-                temp[1] = lanternFish[2];
-                temp[2] = lanternFish[3];
-                temp[3] = lanternFish[4];
-                temp[4] = lanternFish[5];
-                temp[5] = lanternFish[6];
-                temp[6] = lanternFish[7] + lanternFish[0];
-                temp[7] = lanternFish[8];
-                temp[8] = lanternFish[0];
-                lanternFish = temp;
+                long temp = lanternFish[1];
+                lanternFish[1] = lanternFish[2];
+                lanternFish[2] = lanternFish[3];
+                lanternFish[3] = lanternFish[4];
+                lanternFish[4] = lanternFish[5];
+                lanternFish[5] = lanternFish[6];
+                lanternFish[6] = lanternFish[7] + lanternFish[0];
+                lanternFish[7] = lanternFish[8];
+                lanternFish[8] = lanternFish[0];
+                lanternFish[0] = temp;
             }
 
             long sum = lanternFish[0] + lanternFish[1] + lanternFish[2] + lanternFish[3] + lanternFish[4] + lanternFish[5] + lanternFish[6] + lanternFish[7] + lanternFish[8];
