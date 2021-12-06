@@ -29,8 +29,8 @@ namespace AdventOfCode2021
                 if (x1 != x2 && y1 != y2)
                     continue;
 
-                int dx = ((x2 - x1) < 0) ? -1 : (((x2 - x1) == 0) ? 0 : 1);
-                int dy = ((y2 - y1) < 0) ? -1 : (((y2 - y1) == 0) ? 0 : 1);
+                int dx = (x2 < x1) ? -1 : ((x2 == x1) ? 0 : 1);
+                int dy = (y2 < y1) ? -1 : ((y2 == y1) ? 0 : 1);
 
                 int x = x1;
                 int y = y1;
@@ -79,8 +79,8 @@ namespace AdventOfCode2021
                 int x2 = int.Parse(m.Groups["x2"].Value);
                 int y2 = int.Parse(m.Groups["y2"].Value);
 
-                int dx = ((x2 - x1) < 0) ? -1 : (((x2 - x1) == 0) ? 0 : 1);
-                int dy = ((y2 - y1) < 0) ? -1 : (((y2 - y1) == 0) ? 0 : 1);
+                int dx = (x2 < x1) ? -1 : ((x2 == x1) ? 0 : 1);
+                int dy = (y2 < y1) ? -1 : ((y2 == y1) ? 0 : 1);
 
                 int x = x1;
                 int y = y1;
