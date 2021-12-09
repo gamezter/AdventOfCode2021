@@ -5,7 +5,7 @@ namespace AdventOfCode2021
     {
         static void Main(string[] args)
         {
-            Day8.part1();
+            Day8.part2();
         }
     }
 }
