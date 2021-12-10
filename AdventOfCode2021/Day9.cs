@@ -73,11 +73,10 @@ skip:               ;
                     }
                     //found low point
 
-                    int size = 1;
+                    int size = 0;
 
                     Queue<(int, int, int)> toVisit = new Queue<(int, int, int)>();
-                    foreach(var (dx, dy) in offsets)
-                        toVisit.Enqueue((x + dx, y + dy, center));
+                    toVisit.Enqueue((x, y, -1));
 
                     while(toVisit.Count > 0)
                     {
