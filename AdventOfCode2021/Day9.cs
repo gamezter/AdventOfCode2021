@@ -22,10 +22,10 @@ namespace AdventOfCode2021
                 for(int x = 0; x < line.Length; ++x)
                 {
                     int center = line[x] - '0';
-                    for(int i = 0; i < 4; ++i)
+                    foreach(var (dx, dy) in offsets)
                     {
-                        int nx = x + offsets[i].Item1;
-                        int ny = y + offsets[i].Item2;
+                        int nx = x + dx;
+                        int ny = y + dy;
                         if (nx < 0 || nx >= lines.Length || ny < 0 || ny >= line.Length)
                             continue;
 
@@ -93,7 +93,7 @@ skip:               ;
                         }
                     }
                     basins.Add(size);
-                    skip:;
+skip:               ;
                 }
             }
 
