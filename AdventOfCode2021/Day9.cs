@@ -76,26 +76,21 @@ skip:               ;
                     int size = 1;
 
                     Queue<(int, int, int)> toVisit = new Queue<(int, int, int)>();
-                    toVisit.Enqueue((x - 1, y, center));
-                    toVisit.Enqueue((x + 1, y, center)); 
-                    toVisit.Enqueue((x, y - 1, center));
-                    toVisit.Enqueue((x, y + 1, center));
+                    foreach(var (dx, dy) in offsets)
+                        toVisit.Enqueue((x + dx, y + dy, center));
 
                     while(toVisit.Count > 0)
                     {
                         var (nx, ny, prev) = toVisit.Dequeue();
                         if (nx < 0 || nx >= maxX || ny < 0 || ny >= maxY || map[nx, ny] == 9)
                             continue;
-                        int curr = map[nx, ny];
 
-                        if (curr > prev)
+                        if (map[nx, ny] > prev)
                         {
+                            foreach (var (dx, dy) in offsets)
+                                toVisit.Enqueue((nx + dx, ny + dy, map[nx, ny]));
                             map[nx, ny] = 9;
                             size++;
-                            toVisit.Enqueue((nx - 1, ny, curr));
-                            toVisit.Enqueue((nx + 1, ny, curr));
-                            toVisit.Enqueue((nx, ny - 1, curr));
-                            toVisit.Enqueue((nx, ny + 1, curr));
                         }
                     }
                     basins.Add(size);
