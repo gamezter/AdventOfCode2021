@@ -76,7 +76,7 @@ skip:           ;
                     {
                         char d = scopes.Peek();
 
-                        if (Math.Abs(c - d) < 3)
+                        if (Math.Abs(c - d) < 3) // ascii brackets are never farther than 2 apart
                             scopes.Pop();
                         else
                         {
