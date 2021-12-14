@@ -14,49 +14,46 @@ namespace AdventOfCode2021
         {
             string[] lines = File.ReadAllLines("day14.txt");
 
-            List<(string, char)> rules = new List<(string, char)>();
-            Regex r = new Regex(@"(?<pair>\w\w) -> (?<single>\w)");
+            Dictionary<(char, char), char> rules = new Dictionary<(char, char), char>();
 
-            for(int i = 2; i < lines.Length; ++i)
+            for (int i = 2; i < lines.Length; ++i)
             {
-                Match m = r.Match(lines[i]);
-                rules.Add((m.Groups["pair"].Value, m.Groups["single"].Value[0]));
+                string line = lines[i];
+                rules.Add((line[0], line[1]), line[6]);
             }
 
-            int[] counts = new int[26];
+            int Os = 0;
+            int Vs = 0;
 
             int length = lines[0].Length;
 
             for (int i = 0; i < length - 1; ++i)
                 func(lines[0][i], lines[0][i + 1], 10);
-            counts[lines[0][length - 1] - 'A']++;
+
+            char last = lines[0][length - 1];
+            if (last == 'O')
+                Os++;
+            else if (last == 'V')
+                Vs++;
 
             void func(char a, char b, int depth)
             {
                 if (depth == 0)
                 {
-                    counts[a - 'A']++;
+                    if (a == 'O')
+                        Os++;
+                    else if (a == 'V')
+                        Vs++;
                     return;
                 }
 
-                var v = rules.Find(rule => rule.Item1[0] == a && rule.Item1[1] == b);
+                char c = rules[(a, b)];
 
-                func(a, v.Item2, depth - 1);
-                func(v.Item2, b, depth - 1);
+                func(a, c, depth - 1);
+                func(c, b, depth - 1);
             }
 
-            int max = 0;
-            int min = int.MaxValue;
-
-            foreach(var el in counts)
-            {
-                if (el < min && el != 0)
-                    min = el;
-                if (el > max)
-                    max = el;
-            }
-
-            Console.WriteLine(max - min);
+            Console.WriteLine(Os - Vs);
             Console.Read();
         }
 
@@ -64,49 +61,82 @@ namespace AdventOfCode2021
         {
             string[] lines = File.ReadAllLines("day14.txt");
 
-            List<(string, char)> rules = new List<(string, char)>();
-            Regex r = new Regex(@"(?<pair>\w\w) -> (?<single>\w)");
+            Dictionary<(char, char), char> rules = new Dictionary<(char, char), char>();
+            Dictionary<(char, char, int), (long, long)> memo = new Dictionary<(char, char, int), (long, long)>();
 
             for (int i = 2; i < lines.Length; ++i)
             {
-                Match m = r.Match(lines[i]);
-                rules.Add((m.Groups["pair"].Value, m.Groups["single"].Value[0]));
+                string line = lines[i];
+                rules.Add((line[0], line[1]), line[6]);
             }
+
+            long Os = 0;
+            long Vs = 0;
 
             long[] counts = new long[26];
 
             int length = lines[0].Length;
 
             for (int i = 0; i < length - 1; ++i)
-                func(lines[0][i], lines[0][i + 1], 40);
-            counts[lines[0][length - 1] - 'A']++;
+            {
+                var v = func(lines[0][i], lines[0][i + 1], 40);
+                Os += v.Item1;
+                Vs += v.Item2;
+            }
 
-            void func(char a, char b, int depth)
+            char last = lines[0][length - 1];
+            if (last == 'O')
+                Os++;
+            else if (last == 'V')
+                Vs++;
+
+            (long, long) func(char a, char b, int depth)
             {
                 if (depth == 0)
                 {
-                    counts[a - 'A']++;
-                    return;
+                    if (a == 'O')
+                        return (1, 0);
+                    else if (a == 'V')
+                        return (0, 1);
+                    else
+                        return (0, 0);
                 }
 
-                var v = rules.Find(rule => rule.Item1[0] == a && rule.Item1[1] == b);
+                char c = rules[(a, b)];
 
-                func(a, v.Item2, depth - 1);
-                func(v.Item2, b, depth - 1);
+                long os = 0;
+                long vs = 0;
+
+                if(memo.TryGetValue((a, c, depth - 1), out var value))
+                {
+                    os += value.Item1;
+                    vs += value.Item2;
+                }
+                else
+                {
+                    var v = func(a, c, depth - 1);
+                    os += v.Item1;
+                    vs += v.Item2;
+                    memo[(a, c, depth - 1)] = (v.Item1, v.Item2);
+                }
+
+                if (memo.TryGetValue((c, b, depth - 1), out var value2))
+                {
+                    os += value2.Item1;
+                    vs += value2.Item2;
+                }
+                else
+                {
+                    var v = func(c, b, depth - 1);
+                    os += v.Item1;
+                    vs += v.Item2;
+                    memo[(c, b, depth - 1)] = (v.Item1, v.Item2);
+                }
+
+                return (os, vs);
             }
 
-            long max = 0;
-            long min = long.MaxValue;
-
-            foreach (var el in counts)
-            {
-                if (el < min && el != 0)
-                    min = el;
-                if (el > max)
-                    max = el;
-            }
-
-            Console.WriteLine(max - min);
+            Console.WriteLine(Os - Vs);
             Console.Read();
         }
     }
