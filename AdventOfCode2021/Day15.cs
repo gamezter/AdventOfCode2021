@@ -54,5 +54,59 @@ namespace AdventOfCode2021
             Console.WriteLine(distances[width - 1, height - 1]);
             Console.Read();
         }
+
+        public static void part2()
+        {
+            string[] lines = File.ReadAllLines("day15.txt");
+
+            Queue<(int, int)> open = new Queue<(int, int)>();
+            open.Enqueue((0, 0));
+
+            int trueWidth = lines[0].Length;
+            int trueHeight = lines.Length;
+
+            int width = trueWidth * 5;
+            int height = trueHeight * 5;
+
+            int[,] distances = new int[width, height];
+
+            for (int x = 0; x < width; ++x)
+                for (int y = 0; y < height; ++y)
+                    distances[x, y] = int.MaxValue;
+            distances[0, 0] = 0;
+
+            while (open.Count > 0)
+            {
+                var (x, y) = open.Dequeue();
+
+                int dist = distances[x, y];
+
+                foreach (var (dx, dy) in offsets)
+                {
+                    int nx = x + dx;
+                    int ny = y + dy;
+
+                    if (nx < 0 || nx >= width || ny < 0 || ny >= height)
+                        continue;
+
+                    int val = lines[ny % trueHeight][nx % trueWidth] - '0';
+
+                    val = (val + nx / trueWidth + ny / trueHeight);
+                    while (val > 9)
+                        val -= 9;
+
+                    int newDist = dist + val;
+
+                    if (newDist < distances[nx, ny])
+                    {
+                        distances[nx, ny] = newDist;
+                        open.Enqueue((nx, ny));
+                    }
+                }
+            }
+
+            Console.WriteLine(distances[width - 1, height - 1]);
+            Console.Read();
+        }
     }
 }
