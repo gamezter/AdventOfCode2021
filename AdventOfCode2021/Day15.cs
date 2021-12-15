@@ -21,7 +21,6 @@ namespace AdventOfCode2021
             int height = lines.Length;
 
             int[,] distances = new int[width, height];
-            bool[,] visited = new bool[width, height];
 
             for (int x = 0; x < width; ++x)
                 for (int y = 0; y < height; ++y)
@@ -31,9 +30,6 @@ namespace AdventOfCode2021
             while(open.Count > 0)
             {
                 var (x, y) = open.Dequeue();
-
-                if (visited[x, y])
-                    continue;
 
                 int dist = distances[x, y];
 
@@ -50,12 +46,9 @@ namespace AdventOfCode2021
                     if (newDist < distances[nx, ny])
                     {
                         distances[nx, ny] = newDist;
-                        visited[nx, ny] = false;
+                        open.Enqueue((nx, ny));
                     }
-
-                    open.Enqueue((nx, ny));
                 }
-                visited[x, y] = true;
             }
 
             Console.WriteLine(distances[width - 1, height - 1]);
