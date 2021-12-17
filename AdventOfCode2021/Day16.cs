@@ -27,11 +27,11 @@ namespace AdventOfCode2021
                 int ret = 0;
                 do
                 {
-                    int nibble;
-                    if (line[bitOffset / 4] > '9')
-                        nibble = (line[bitOffset / 4] - 'A') + 10;
+                    int nibble = line[bitOffset / 4];
+                    if (nibble > '9')
+                        nibble -= '7';
                     else
-                        nibble = line[bitOffset / 4] - '0';
+                        nibble -= '0';
 
                     int b = nibble >> (rightOffset - bitsInNibble);
                     int mask = (1 << bitsInNibble) - 1;
