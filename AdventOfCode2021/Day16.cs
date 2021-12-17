@@ -12,23 +12,6 @@ namespace AdventOfCode2021
         public static void part1()
         {
             string line = File.ReadAllLines("day16.txt")[0];
-            byte[] bytes = new byte[line.Length / 2];
-
-            for(int i = 0; i < line.Length; i += 2)
-            {
-                int upper, lower;
-                if (line[i] > '9')
-                    upper = (byte)((line[i] - 'A') + 10);
-                else
-                    upper = (byte)(line[i] - '0');
-
-                if (line[i + 1] > '9')
-                    lower = (byte)((line[i + 1] - 'A') + 10);
-                else
-                    lower = (byte)(line[i + 1] - '0');
-
-                bytes[i / 2] = (byte)((upper << 4) + lower);
-            }
 
             int nBits = line.Length * 4;
 
@@ -38,19 +21,27 @@ namespace AdventOfCode2021
 
             int nextNBits(int n)
             {
-                int bitsInByte = Math.Min((8 - (bitOffset % 8)), n);
+                int rightOffset = 4 - (bitOffset % 4);
+                int bitsInNibble = Math.Min(rightOffset, n);
 
                 int ret = 0;
                 do
                 {
-                    int b = bytes[bitOffset / 8] >> ((7 - (bitOffset % 8)) - bitsInByte);
-                    int mask = (1 << bitsInByte) - 1;
-                    ret = (ret << bitsInByte) + (b & mask);
+                    int nibble;
+                    if (line[bitOffset / 4] > '9')
+                        nibble = (line[bitOffset / 4] - 'A') + 10;
+                    else
+                        nibble = line[bitOffset / 4] - '0';
 
-                    n -= bitsInByte;
-                    bitOffset += bitsInByte;
-                    bitsInByte = Math.Min((8 - (bitOffset % 8)), n);
-                }while (bitsInByte < n);
+                    int b = nibble >> (rightOffset - bitsInNibble);
+                    int mask = (1 << bitsInNibble) - 1;
+                    ret = (ret << bitsInNibble) + (b & mask);
+
+                    n -= bitsInNibble;
+                    bitOffset += bitsInNibble;
+                    rightOffset = 4 - (bitOffset % 4);
+                    bitsInNibble = Math.Min(rightOffset, n);
+                }while (bitsInNibble > 0);
 
                 return ret;
             }
