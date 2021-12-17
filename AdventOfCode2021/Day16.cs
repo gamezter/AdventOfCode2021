@@ -33,9 +33,9 @@ namespace AdventOfCode2021
                     else
                         nibble -= '0';
 
-                    int b = nibble >> (rightOffset - bitsInNibble);
-                    int mask = (1 << bitsInNibble) - 1;
-                    ret = (ret << bitsInNibble) + (b & mask);
+                    int b = nibble >> (rightOffset - bitsInNibble); // place bits in nibble on far right end
+                    int mask = (1 << bitsInNibble) - 1; // create mask with bitsInNibble * 1s
+                    ret = (ret << bitsInNibble) + (b & mask); // move existing bits to the left and add new bits
 
                     n -= bitsInNibble;
                     bitOffset += bitsInNibble;
