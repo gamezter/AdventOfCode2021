@@ -138,72 +138,64 @@ namespace AdventOfCode2021
                 switch (typeID)
                 {
                     case 0:
+                        long sum = 0;
+                        if (lengthTypeID == 1)
                         {
-                            long sum = 0;
-                            if (lengthTypeID == 1)
-                            {
-                                for(int i = 0; i < length; ++i)
-                                    sum += parse();
-                            }
-                            else
-                            {
-                                int startBitOffset = bitOffset;
-                                while (bitOffset - startBitOffset < length)
-                                    sum += parse();
-                            }
-                            return sum;
+                            for(int i = 0; i < length; ++i)
+                                sum += parse();
                         }
+                        else
+                        {
+                            int startBitOffset = bitOffset;
+                            while (bitOffset - startBitOffset < length)
+                                sum += parse();
+                        }
+                        return sum;
                     case 1:
+                        long product = 1;
+                        if (lengthTypeID == 1)
                         {
-                            long product = 1;
-                            if (lengthTypeID == 1)
-                            {
-                                for (int i = 0; i < length; ++i)
-                                    product *= parse();
-                            }
-                            else
-                            {
-                                int startBitOffset = bitOffset;
-                                while (bitOffset - startBitOffset < length)
-                                    product *= parse();
-                            }
-                            return product;
+                            for (int i = 0; i < length; ++i)
+                                product *= parse();
                         }
-                    case 2:
+                        else
                         {
-                            if (lengthTypeID == 1)
-                            {
-                                long min = parse();
-                                for (int i = 1; i < length; ++i)
-                                    min = Math.Min(min, parse());
-                                return min;
-                            }
-                            else
-                            {
-                                int startBitOffset = bitOffset;
-                                long min = parse();
-                                while (bitOffset - startBitOffset < length)
-                                    min = Math.Min(min, parse());
-                                return min;
-                            }
+                            int startBitOffset = bitOffset;
+                            while (bitOffset - startBitOffset < length)
+                                product *= parse();
+                        }
+                        return product;
+                    case 2:
+                        if (lengthTypeID == 1)
+                        {
+                            long min = parse();
+                            for (int i = 1; i < length; ++i)
+                                min = Math.Min(min, parse());
+                            return min;
+                        }
+                        else
+                        {
+                            int startBitOffset = bitOffset;
+                            long min = parse();
+                            while (bitOffset - startBitOffset < length)
+                                min = Math.Min(min, parse());
+                            return min;
                         }
                     case 3:
+                        if (lengthTypeID == 1)
                         {
-                            if (lengthTypeID == 1)
-                            {
-                                long max = parse();
-                                for (int i = 1; i < length; ++i)
-                                    max = Math.Max(max, parse());
-                                return max;
-                            }
-                            else
-                            {
-                                int startBitOffset = bitOffset;
-                                long max = parse();
-                                while (bitOffset - startBitOffset < length)
-                                    max = Math.Max(max, parse());
-                                return max;
-                            }
+                            long max = parse();
+                            for (int i = 1; i < length; ++i)
+                                max = Math.Max(max, parse());
+                            return max;
+                        }
+                        else
+                        {
+                            int startBitOffset = bitOffset;
+                            long max = parse();
+                            while (bitOffset - startBitOffset < length)
+                                max = Math.Max(max, parse());
+                            return max;
                         }
                     case 5:
                         return parse() > parse() ? 1 : 0;
