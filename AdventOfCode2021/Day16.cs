@@ -38,13 +38,20 @@ namespace AdventOfCode2021
 
             int nextNBits(int n)
             {
+                int bitsInByte = Math.Min((8 - (bitOffset % 8)), n);
+
                 int ret = 0;
-                for(int i = 0; i < n; ++i)
+                do
                 {
-                    int offset = (7 - (bitOffset % 8));
-                    ret = (ret << 1) + ((bytes[bitOffset / 8] >> offset) & 1);
-                    bitOffset++;
-                }
+                    int b = bytes[bitOffset / 8] >> ((7 - (bitOffset % 8)) - bitsInByte);
+                    int mask = (1 << bitsInByte) - 1;
+                    ret = (ret << bitsInByte) + (b & mask);
+
+                    n -= bitsInByte;
+                    bitOffset += bitsInByte;
+                    bitsInByte = Math.Min((8 - (bitOffset % 8)), n);
+                }while (bitsInByte < n);
+
                 return ret;
             }
 
