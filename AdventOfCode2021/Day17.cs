@@ -53,9 +53,9 @@ namespace AdventOfCode2021
             int minY = -157;
             int maxY = -103;
 
-            int maxTicks = 350;
+            int maxTicks = 350; // no initial dy lands in rect after 350 ticks
 
-            List<int>[] ticks = new List<int>[maxTicks]; // no initial dy lands in rect after 350 ticks
+            List<int>[] ticks = new List<int>[maxTicks];
 
             for (int y = -160; y < 160; ++y) // tested range that falls in rect
             {
@@ -70,7 +70,7 @@ namespace AdventOfCode2021
                         if (ticks[t] == null)
                             ticks[t] = new List<int>();
                         ticks[t].Add(y);
-                        Console.WriteLine("dy: " + y + " at tick: " + t);
+                        Console.WriteLine("initial dy: " + y + " at tick: " + t);
                     }
 
                     py += dy;
@@ -78,8 +78,6 @@ namespace AdventOfCode2021
                     t++;
                 }
             }
-
-            Console.WriteLine();
 
             HashSet<(int, int)> pairs = new HashSet<(int, int)>();
 
@@ -98,7 +96,7 @@ namespace AdventOfCode2021
                             foreach (var y in ticks[t])
                                 pairs.Add((x, y));
                         }
-                        Console.WriteLine("dx: " + x + " at tick: " + t);
+                        Console.WriteLine("initial dx: " + x + " at tick: " + t);
                     }
 
                     px += dx;
