@@ -63,49 +63,49 @@ namespace AdventOfCode2021
         {
             string[] lines = File.ReadAllLines("day18.txt");
 
-            List<char> sum = new List<char>();
+            int maxMagnitude = 0;
 
-            for (int i = 0; i < lines[0].Length; ++i)
+            for(int left = 0; left < lines.Length; ++left)
             {
-                char c = lines[0][i];
-                if (c == ',')
-                    continue;
-
-                if (c == '[' || c == ']')
-                    sum.Add(c);
-                else
-                    sum.Add((char)(c - '0'));
-            }
-
-
-            for (int i = 1; i < lines.Length; ++i)
-            {
-                sum = Add(sum, lines[i]);
-
-                restart:
-                if (Explode(sum))
-                    goto restart;
-                if (Split(sum))
-                    goto restart;
-            }
-
-            int index = 0;
-
-            int magnitude()
-            {
-                while (sum[index] == ']')
-                    index++;
-
-                if (sum[index] < 10)
-                    return sum[index++];
-                else
+                for(int right = 0; right < lines.Length; ++right)
                 {
-                    index++;
-                    return 3 * magnitude() + 2 * magnitude();
+                    if (left == right)
+                        continue;
+
+                    List<char> sum = Add(lines[left], lines[right]);
+
+                    restart:
+                    if (Explode(sum))
+                        goto restart;
+                    if (Split(sum))
+                        goto restart;
+
+                    int index = 0;
+
+                    int magnitude()
+                    {
+                        while (sum[index] == ']')
+                            index++;
+
+                        if (sum[index] < 10)
+                            return sum[index++];
+                        else
+                        {
+                            index++;
+                            return 3 * magnitude() + 2 * magnitude();
+                        }
+                    }
+
+                    int mag = magnitude();
+
+                    if (mag > maxMagnitude)
+                        maxMagnitude = mag;
+
                 }
             }
 
-            Console.WriteLine(magnitude());
+
+            Console.WriteLine(maxMagnitude);
             Console.Read();
         }
 
@@ -113,6 +113,35 @@ namespace AdventOfCode2021
         {
             List<char> ret = new List<char> { '[' };
             ret.AddRange(left);
+            for (int i = 0; i < right.Length; ++i)
+            {
+                char c = right[i];
+                if (c == ',')
+                    continue;
+
+                if (c == '[' || c == ']')
+                    ret.Add(c);
+                else
+                    ret.Add((char)(c - '0'));
+            }
+            ret.Add(']');
+            return ret;
+        }
+
+        static List<char> Add(string left, string right)
+        {
+            List<char> ret = new List<char> { '[' };
+            for (int i = 0; i < left.Length; ++i)
+            {
+                char c = left[i];
+                if (c == ',')
+                    continue;
+
+                if (c == '[' || c == ']')
+                    ret.Add(c);
+                else
+                    ret.Add((char)(c - '0'));
+            }
             for (int i = 0; i < right.Length; ++i)
             {
                 char c = right[i];
