@@ -75,7 +75,7 @@ namespace AdventOfCode2021
             Console.Read();
         }
 
-        public static void part1()
+        public static void part2()
         {
             string[] lines = File.ReadAllLines("day20.txt");
 
