@@ -44,7 +44,7 @@ namespace AdventOfCode2021
                             int ny = y + dy - 1;
                             if (nx < 0 || nx >= (width - 2) || ny < 0 || ny >= (height - 2))
                             {
-                                if (i % 2 == 1) // because of key, if kernel is all 0, next phase will become 1, if kernel is all 1, next phase will become 0. On odd phases the inifinite map is 1 everywhere, except for starting area
+                                if (i % 2 == 1) // because of key, if kernel is all 0, next phase will become 1, if kernel is all 1, next phase will become 0. On odd phases the infinite map is 1 everywhere outside of map
                                     offset += bit;
 
                                 continue;
@@ -92,7 +92,7 @@ namespace AdventOfCode2021
                 }
             }
 
-            for (int i = 0; i < 50; ++i)
+            for (int i = 0; i < 50; ++i) // only change this to 50 for part 2
             {
                 height += 2;
                 width += 2;
@@ -109,7 +109,7 @@ namespace AdventOfCode2021
                             int ny = y + dy - 1;
                             if (nx < 0 || nx >= (width - 2) || ny < 0 || ny >= (height - 2))
                             {
-                                if (i % 2 == 1) // because of key, if kernel is all 0, next phase will become 1, if kernel is all 1, next phase will become 0. On odd phases the inifinite map is 1 everywhere, except for starting area
+                                if (i % 2 == 1) // because of key, if kernel is all 0, next phase will become 1, if kernel is all 1, next phase will become 0. On odd phases the infinite map is 1 everywhere outside of map
                                     offset += bit;
 
                                 continue;
